@@ -1,0 +1,290 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InDigiFAB v 0.1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
+  <link href="assets/styles/styles.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Raleway&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script type='text/javascript'>
+    $(document).ready(function() {
+      $("img.a").hover(
+        function() {
+          $(this).stop().animate({
+            "opacity": "0"
+          }, "slow");
+        },
+        function() {
+          $(this).stop().animate({
+            "opacity": "1"
+          }, "slow");
+        });
+
+    });
+  </script>
+</head>
+
+<body>
+  <div id="fa-bg" class="body-wrapper">
+    <div class="parallax bgimg-mdef">
+      <div class="body-text">
+
+        <h1 id="embedded-programming">Embedded Programming </h1>
+        <h4 id="have-you">Have you:</h4>
+        <ul>
+          <li>
+            <p>[x] Documented what you learned from reading a microcontroller datasheet.</p>
+          </li>
+          <li>
+            <p>[x] What questions do you have? What would you like to learn more about?</p>
+          </li>
+          <li>
+            <p>[ ] Programmed your board</p>
+          </li>
+          <li>
+            <p>[ ] Described the programming process/es you used</p>
+          </li>
+          <li>
+            <p>[ ] Included your code</p>
+          </li>
+        </ul>
+        <p><a href="https://www.youtube.com/watch?v=wdKsoC5_NIc" title="Embedded programming with Arduino IDE" target="_blank"><img src="https://img.youtube.com/vi/wdKsoC5_NIc/0.jpg" alt="Embedded programming"></a></p>
+        <p>Sending C code through AVR tools and testing through Arduino serial Monitor:</p>
+        <video width="320" height="240" controls="controls">
+          <source type="video/mp4" src="assets/IMG_2575.mp4">
+        </video>
+
+
+        <h4 id="breaking-down-neils-code">Breaking down Neil&apos;s code</h4>
+        <p>I&apos;m familiar with reading code through my experience writing HTML for websites and C++ for video game development.</p>
+        <p>This is the program from Neil&apos;s <a href="http://academy.cba.mit.edu/classes/embedded_programming/hello.ftdi.44.echo.c" target="_blank">code</a> it relies on definitions earlier in the file or in the includes. There are also specific
+          data types that the code relies on to define variables.</p>
+        <p>The first data type is a char-acter. We see a variable <code>chr</code> created, followed by an array <code>buffer[max_buffer]</code>. <code>max_buffer</code> in Neil&apos;s code is a <code>global</code> which is a variable created outside
+          of the main loop to allow for all functions defined in the file to use. <code>max_buffer</code> is hard coded to 25. The next data type is and int-eger. This holds whole numbers. The variable created is called <code>index</code>.</p>
+        <p><code>max_buffer</code> at this point seems like a good candidate for changes.</p>
+        <pre><code>int main(void) {
+        //
+        // main
+        //
+        static char chr;
+        static char buffer[max_buffer] = {0};
+        static int index;
+        </code></pre>
+        <p><code>CLKPR</code> is the Clock Prescale Register defined in the ATTiny44 <a href="http://ww1.microchip.com/downloads/en/DeviceDoc/doc8006.pdf" target="_blank">data sheet</a>. Rahpael Schaad, provided a <a
+            href="http://fab.cba.mit.edu/classes/863.15/doc/tutorials/programming/clock.html" target="_blank">tutorial</a> with a helpful breakdown on this point.</p>
+        <blockquote>
+          <p>If we want to run at the full 8MHz and not mess with the LFuse, we simply set &gt; CLKPR to divide by 1 in code:</p>
+          <p>CLKPR = (1 &lt;&lt; CLKPCE);</p>
+          <p>CLKPR = (0 &lt;&lt; CLKPS3) | (0 &lt;&lt; CLKPS2) | (0 &lt;&lt; CLKPS1) | (0 &lt;&lt; CLKPS0);</p>
+        </blockquote>
+        <p>From the data sheet:</p>
+        <blockquote>
+          <p>The CLKPCE bit must be written to logic one to enable change of the CLKPS
+            bits. The CLKPCE bit is only updated when the other bits in CLKPR are
+            simultaniosly written to zero. CLKPCE is cleared by hardware four cycles
+            after it is written or when the CLKPS bits are written. Rewriting the CLKPCE
+            bit within this time-out period does neither extend the time-out period, nor
+            clear the CLKPCE bit.</p>
+        </blockquote>
+        <pre><code>   //
+        // set clock divider to /1
+        //
+        CLKPR = (1 &lt;&lt; CLKPCE);
+        CLKPR = (0 &lt;&lt; CLKPS3) | (0 &lt;&lt; CLKPS2) | (0 &lt;&lt; CLKPS1) | (0 &lt;&lt; CLKPS0);
+        </code></pre>
+        <p>The next bit of code initiatizes the outpins as Neil comments in the code. <code>serial_port</code> is defined globally as <code>PORTA</code>. Defined in the datasheet:</p>
+        <blockquote>
+          <p>Port A is a 8-bit bi-directional I/O port with inte rnal pull-up resistor
+            (selected for each bit). The Port A output buffers have symmetrical drive
+            characteristics with both high sink and source capability.</p>
+        </blockquote>
+        <p><code>serial_pin_out</code> is defined as <code>(1 &lt;&lt; PA1)</code>. Writing logic one to enables the Analog to Digital Converter, Channel 1.</p>
+        <pre><code>   //
+        // initialize output pins
+        //
+        set(serial_port, serial_pin_out);
+        output(serial_direction, serial_pin_out);
+        </code></pre>
+        <p>The integer variable <code>index</code> gets initialized to 0 just before the main loop. <code>while</code> loops will run while the condition passed is <code>TRUE</code>. As a Boolean type, the value of &quot;true&quot; is 1 and the value
+          of &quot;false&quot; is 0. Because a 1 is passed into the while loop, this will be what runs on the processor after all is initialized.</p>
+        <pre><code>   //
+        // main loop
+        //
+        index = 0;
+        while (1) {
+        </code></pre>
+        <p><code>get_char</code> is a function defined earlier in the file. The first parameter passed is a reference to a global variable, <code>serial_pins</code>.</p>
+        <p>Regarding references or the ampersand before the variable: there are some helpful questions on stackoverflow regarding <a
+            href="https://stackoverflow.com/questions/57483/what-are-the-differences-between-a-pointer-variable-and-a-reference-variable-in/57492#57492" target="_blank">references and pointers</a>, and <a
+            href="https://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap" target="_blank">stack and heap</a>.</p>
+        <p><code>serial_pins</code> is defined as <code>PINA</code>. From the datasheet,</p>
+        <blockquote>
+          <p>As inputs, Port A pins that are externally pulled low will source current if
+            the pull-up resistors are activated. The Port A pins are tri-stated when a
+            reset condition becomes active, even if the clock is not running.</p>
+        </blockquote>
+        <p><code>serial_pin_in</code> writes logic one to <code>PA0</code> which enables the Analog to Digital Converter, Channel 0.</p>
+        <p>We also pass a refrence to the character <code>chr</code> defined earlier in <code>main</code>.</p>
+        <pre><code>      get_char(&amp;serial_pins, serial_pin_in, &amp;chr);
+        </code></pre>
+        <p>In the definition of the function, we pass the reference to PINA as a pointer or memory address. We also pass the specific pin or PA0. We also have a pointer to the original chr variable.</p>
+        <p>There are some functions defined globally such as <code>pin_test</code> whihc &quot;tests for the port pin.&quot; </p>
+        <p><code>bit_delay</code> is defined globally with <code>bit_delay_time</code> set at 8.5 which is for 115200 baud rate for serial communication with overhead. <code>bit_delay</code> calls <code>_delay_us</code> which is defined in
+          <code>util/delay.h</code> in the includes.</p>
+        <pre><code>void get_char(volatile unsigned char *pins, unsigned char pin, char *rxbyte) {
+        //
+        // read character into rxbyte on pins pin
+        //    assumes line driver (inverts bits)
+        //
+        *rxbyte = 0;
+        while (pin_test(*pins,pin))
+        //
+        // wait for start bit
+        //
+        ;
+        //
+        // delay to middle of first data bit
+        //
+        half_bit_delay();
+        bit_delay();
+        </code></pre>
+        <p>These are the includes. Before compiling the code, I made sure that each was available on my computer using the <code>locate</code> command in terminal. My current working laptop is an Intel Core 2 CPU T7200 @ 2.00 GHz x 2 running Ubuntu
+          16.04 LTS.</p>
+        <pre><code>#include &lt;avr/io.h&gt;
+        #include &lt;util/delay.h&gt;
+        #include &lt;avr/pgmspace.h&gt;
+        </code></pre>
+        <p>The rest of <code>get_char</code> takes the 8-bit character and reads through each of the bits. It takes 10 bits to snd one character: a start bit, 8 data bits, and a stop bit. The data bits are read right-to-left. A helpful <a
+            href="https://learn.sparkfun.com/tutorials/serial-communication/rules-of-serial" target="_blank">tutorial</a> on Sparkfun brokedown how characters are sent and baud rate.</p>
+        <pre><code>   //
+        // unrolled loop to read data bits
+        //
+        if pin_test(*pins,pin)
+        *rxbyte |= (1 &lt;&lt; 0);
+        else
+        *rxbyte |= (0 &lt;&lt; 0);
+        bit_delay();
+        if pin_test(*pins,pin)
+        *rxbyte |= (1 &lt;&lt; 1);
+        else
+        *rxbyte |= (0 &lt;&lt; 1);
+        bit_delay();
+        if pin_test(*pins,pin)
+        *rxbyte |= (1 &lt;&lt; 2);
+        else
+        *rxbyte |= (0 &lt;&lt; 2);
+        bit_delay();
+        if pin_test(*pins,pin)
+        *rxbyte |= (1 &lt;&lt; 3);
+        else
+        *rxbyte |= (0 &lt;&lt; 3);
+        bit_delay();
+        if pin_test(*pins,pin)
+        *rxbyte |= (1 &lt;&lt; 4);
+        else
+        *rxbyte |= (0 &lt;&lt; 4);
+        bit_delay();
+        if pin_test(*pins,pin)
+        *rxbyte |= (1 &lt;&lt; 5);
+        else
+        *rxbyte |= (0 &lt;&lt; 5);
+        bit_delay();
+        if pin_test(*pins,pin)
+        *rxbyte |= (1 &lt;&lt; 6);
+        else
+        *rxbyte |= (0 &lt;&lt; 6);
+        bit_delay();
+        if pin_test(*pins,pin)
+        *rxbyte |= (1 &lt;&lt; 7);
+        else
+        *rxbyte |= (0 &lt;&lt; 7);
+        //
+        // wait for stop bit
+        //
+        bit_delay();
+        half_bit_delay();
+        }
+        </code></pre>
+        <p>Back in the main loop, we are outputting a string to the <code>serial_pin_out</code>. Each time that we pass through the while loop, a character will be captured. The string includes quotes that have escape characters. The buffer will be
+          populated with characters on each pass, up to 25 characters which is the max value set earlier. The string will then end with a close quote and a new line character. </p>
+        <pre><code>      put_string(&amp;serial_port, serial_pin_out, &quot;hello.ftdi.44.echo.c: you typed \&quot;&quot;);
+        buffer[index++] = chr;
+        if (index == (max_buffer-1))
+        index = 0;
+        put_string(&amp;serial_port, serial_pin_out, buffer);
+        put_char(&amp;serial_port, serial_pin_out, &apos;\&quot;&apos;);
+        put_char(&amp;serial_port, serial_pin_out, 10); // new line
+        }
+        }
+        </code></pre>
+        <p>The easiest path to modifying the code will be to alter the initial string and the buffer. I can then play with the typing and echoing to the terminal.</p>
+        <h4 id="2017-class-review">2017 Class Review</h4>
+        <p><a href="http://archive.fabacademy.org/archives/2017/fablabfct/students/329/week1a.html" target="_blank">Andr&#xE9; Rocha</a>, FCTFabLab (Portugal), was trying to send a &quot;bootloader&quot; to his ISP. Neil interjected Andr&#xE9; was
+          misusing the term &quot;bootloader&quot;. Going to Neil&apos;s &quot;helloEcho&quot; example code, Neil demonstrated that it was just a program that was loaded by a programmer. A bootloader is something different, there are multiple
+          bootloaders available. The processor is designed to be programmed through the ISP interface. It is not directly designed to be programmed from the serial interface. A bootloader is a program that takes a program through the serial
+          interface. An ISP rewrites the whole memory on a processor, but a bootloader will sit on the processor and load programs over itself. In this way, the ISP is no longer needed to program the processor. It&apos;s two routes, either you use an
+          ISP to program and rewrite the whole memory of the processor; or you use a bootloader program to load programs and communicate with the board directly.</p>
+        <p><a href="http://archive.fabacademy.org/archives/2017/fablabhornafjordur/students/201/week8.html" target="_blank">Birkir Thor</a>, Fab Lab Hornafjordur (Iceland), had a final project to make a guitar. Neil searched for Alex Schaub&apos;s <a
+            href="http://academy.cba.mit.edu/classes/applications_implications/musical_instruments/index.html" target="_blank">documentation</a>, and Emma Pareschi reminded him where it was linked. Jens Dyvik had Alex in his lab, they all discussed
+          the final project and the developments on mtm projects at <a href="https://www.fablabs.io/labs/fellesverkstedet" target="_blank">Fellesverkstedet</a>. Returning to Birkir, Neil remarked that his documentation was exactly what should be
+          uploaded to the repository. Birkir outlined the workflow for using the Arduino IDE and an ISP to send a sketch to a board. Arduino IDE was not originally able to program ATTiny. David Mellis demonstrated that it was straight forward to do.
+          To go further with the assignment and demonstrate multiple methods, Neil suggested to burn a bootloader using the Arduino IDE and to try using C to load the program directly.</p>
+        <p><a href="http://archive.fabacademy.org/archives/2017/fablabisrael/students/104/week8.html" target="_blank">Ilia Feldshtein</a>, Fab Lab Israel (Israel), at the first plugin, his board got heated. Neil explained that heat means power is
+          going where it shopuldn&apos;t. If the board is getting hot. Then, it&apos;s &quot;fried&quot;. Neil asked if Ilia left off the external pull up resistor on the example board. Ilia said that he left one off between the ATTiny and the
+          button. Neil explained that you do not need a pull up resistor to the button. There is a pull up resistor in the ATTiny that can be turned on. Looking at the datasheet, Neil referred to the I/O port. The pin can be an input or an output. It
+          has an onboard pull up resistor. Logically, you write a 0 or 1 to the pin. If you write a 1 to the pin, it turns on the pull up. Ilia experienced problems with USB identification. The example board, Neil explained, has an FTDI and ISP
+          connection. On the ISP, there is a pin labeled V, this is an output to tell the programmer what voltage the board is operating at. The FTDI header has a VCC pin and it&apos;s a power supply. Commercial programmers expect the V pin on the
+          ISP to be an output. If the board is connected through the ISP and not the FTDI. Then, it shouldn&apos;t work because the FTDI is the power supply. After trying with the designed board, Ilia tried with a Photon board to practice coding. He
+          then tried coding with an Arduino commercial board. Referring back to Birkir&apos;s documentation, Neil reminded Ilia of the workflow that was discussed. While Ilia&apos;s back up to the assignment was good, the bill of materials for the
+          example boards are $1&apos;s. Once mastered, the goal is to be able to pick a processor, pick the form factor, and pick the peripherals. </p>
+        <p><a href="http://archive.fabacademy.org/archives/2017/fablabmadridceu/students/257/8-week-embedded-programming.html" target="_blank">Javi Burongarcia</a>, Fab Lab Madrid CEU (Spain), had the programmer and the echoboard. He demonstrated
+          both the Arduino IDE and directly with C code. Javi milled away the excess copper from the PCB, Javi is &quot;an aesthetic person&quot;. For high frequency or low noise circuit boards, this is important to do. It&apos;s optional for this
+          assignment. Javi was a little confused by the code. Neil walked through both the sketch and the C code. In the sketch for the example board, a function called <em>digitalWrite()</em> sends arguments and &quot;magically&quot; writes to a
+          pin. In the C code, Neil uses macros. Going back to the datasheet, Neil explains that each section ends with a description of registers. Direction register (DDR) says do you talk out or in. Port send data out. Pin listens in. In the C code,
+          Neil moves a 1 on to Pin 5. Looking at the clock system, the clock system has its own register. The register says that the processor should click every time the clock ticks. Then, we are telling the register that the LED is an output. The
+          point of the C code is to demonstrate that you only need one line of code to talks to pins or ports. In this way, you are not buffered by a library. Javi has a beautiful example of a baby walker and had a simplified final project &quot;Fab
+          Window&quot; that can be applied in any house.</p>
+        <p><a href="http://archive.fabacademy.org/archives/2017/fablabakgec/students/462/week8_Embedded%20Programming/assignment8.html" target="_blank">APOORV VATS</a>, AKGEC (India), tried assembly language to also program his board. Apoorv
+          described this as using a third language to program the board. Neil explained that Arduino is not a separate language. Arduino is C but additionally call libraries. The IDE uses gcc. the point behind Neil&apos;s example is to demonstrate a
+          way to directly call gcc and code without the overhead of Arduino. Despite the supposed misinterpretation of &quot;language&quot;, Apoorv demonstrates the size comparison of the code. An Arduino sketch with included libraries is 952 bytes,
+          a C program is 100 bytes, and Assembly program is only 44 bytes. This prompted Neil to correct himself in stating that C code was a &quot;ground truth.&quot; You can go to a lower level than just plain C by programming in Assembly. With
+          Assembly, there are no toolchains or libraries. Lower than Assembly is hex code which is even lighter, but not many people go to that level. Neil recommended the Arduino IDE to leverage the libraries written for it. He recommended C code
+          for iteration, looping, and subreoutines. He recommended Assembly for considering every byte of code to every clock tick. Apoorv also experimented with interrupt based programming. His experience was sometime the reverse of the expected
+          output. This led Neil to explain <a href="http://www.ti.com/lit/an/scea046/scea046.pdf" target="_blank">Schmitt Triggers</a>. Schmitt Triggers are useful when a user needs to convert a sine wave into a square wave. This is a technique that
+          is applied in software.</p>
+        <h4 id="2017-class-notes">2017 Class Notes</h4>
+        <p>An embedded processor, such as an ATTiny, is a complete computer system on a chip that costs 75 cents. An Arduino is actually five separate things that get mixed. It is a board. It is C libraries. It is a bootloader. It is also a header.
+          Each of those five components gets mixed. The purpose of this week is to untangle them.</p>
+        <p>Computers historically are known as having a Harvard architecture. The Mark I computer is also famous for having the first computer bug. A von Neumann architecture stores the data and program are in the same place, in that way they can
+          modify themselves. CISC instructions are on desktop computers. RISC are simpler and are used in a processors. Microprocessors are computer chips that need other chips to function. Microcontrollers condense multiple computer chip functions
+          into one package.</p>
+        <p>In a $1 microcontroller, there are many things. One of the things is memory. These come as registers which the microcontroller operates on very quickly. There is RAM which stores data. SRAM is fast. DRAM is slower but with more capacity.
+          EEPROM is nonvolatile memory. You can write into it, and it will save the value. FLASH is also nonvolatile. It&apos;s harder to write to but that is where you write programs. Fuse memory is where configurations are stored.</p>
+        <p>There are also many peripherals. There is an A/D (analog to digital) that converts a voltage into a number. A comparator compares two numbers quickly. D/A (digital to analog) turn data into a voltage. A timer measures time. a counter
+          measures events. PWM (pulse width modulation) varies pulses that you would use to control motors, displays, etc. USART and USB are peripherals for communication to send messages in and out.</p>
+        <p>Processors are rated by the word size. The example microcontroller is 8-bit meaning the register stores 8 bits. Many desktop computers are 32 or 64-bit. The 8-bit microcontrollers work on &quot;little&quot; words. We are going to use these
+          packages at 20 MHz. It will do one instruction per clock cycle. So, that means 20 million instruction per second. 64-bit math can be achieved. There is a threshold of quality for audio, but it can be done.</p>
+        <p><a href="https://www.youtube.com/watch?v=VUyEFr0YHJs" title="Atmel: Vegard Wollan and Alf-Egil Bogen Discuss AVR&#x2019;s Inception" target="_blank"><img src="https://img.youtube.com/vi/VUyEFr0YHJs/0.jpg"
+              alt="Atmel: Vegard Wollan and Alf-Egil Bogen Discuss AVR&#x2019;s Inception"></a></p>
+        <p>The AVR family was originally designed by Egil Bogen and Vegard Wollan. The idea was a modern compiler like gcc is designed to target high-performance RISC processors. 8051 or PIC family did not fit modern compiler design. AVR family are
+          embedded processors that you can use modern compilers to program. They are an intersection of cheap parts and high performance.</p>
+        <p>--I stopped at 15:15, will pick up as soon as possible</p>
+        <h4 id="sources">Sources</h4>
+        <p>Cockrill, C. <em>Understanding Schmitt Triggers</em>. Texas Instruments, Sept. 2011, www.ti.com/lit/an/scea046/scea046.pdf.</p>
+
+        <p><span>HOME: <a class="falinks" href="index.html#home">Sáhatéti</a></span></p>
+        <p><span>NEXT: <a class="falinks" href="index.html#fa-09">mechanical design, machine design</a></span></p>
+        <p><span>PREV: <a class="falinks" href="index.html#fa-07">computer-controlled machining</a></span></p>
+
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

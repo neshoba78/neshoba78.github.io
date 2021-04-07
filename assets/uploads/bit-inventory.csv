@@ -1,0 +1,32 @@
+,ShopBot router bit kit,,Onsrud number,,www.onsrud.com,,,,,
+,,wood/MDF,91-000,mortising,"clearing, no plunge","1.25""","0.25""","0.5""",surfacing table,"no plunge, rapid smoothing of table"
+,,wood/MDF,37-82,60 degree,V,"1""","0.75""","0.5""",engraving/beveling, beveled edges/mitering/engraving
+,,wood/MDF,48-072,straight,end mill,"0.5""","1.0""","0.5""",general cutting,"neutral top and bottom, sides can show ridges"
+,,wood/MDF,48-005,straight,end mill,"0.25""","0.75""","0.25""",general cutting,"neutral top and bottom, sides can show ridges"
+,,wood/MDF,57-910,down,end mill,"0.25""","0.75""","0.25""",general cutting,"top edge rough, rapid clearing"
+,,wood/MDF,52-910,up,end mill,"0.25""","0.75""","0.25""",general cutting,top edge clean
+,,plastic/alum,65-025,up,end mill,"0.25""","0.75""","0.25""",general cutting,some fraying at top
+,,wood/MDF,77-102,up,"ball nose, tapered","0.125""","1.5""","0.25""",3D cutting,detailed 3D files*
+,,,,,,,,,,"*this bit may be a ShopBot special order, and not available from Onsrud"
+,,,Onsrud # to start looking.  Ball nose bits have BL at the end of their number,,,,,,,
+,,wood or foam,52-,,ball nose,0.25,"0.75""","0.25""",3D cutting ,"not so detailed, good for larger projects"
+,,wood/MDF,48-,straight,end mill,"0.5""","2.0""","0.5""",general cutting,"replace 57-367, probably cheaper option, no n"
+,,,,,,,,,,
+Other bits that may be of interest ,,,,,,,,,,
+,,,Onsrud # www.onsrud.com,,,,,,,
+,,material,#,geometry,tip,size,cut length,shaft=collet,for,results
+,,plastic/alum,65-012,up,end mill,"0.125""","0.5""","0.25""",general cutting,some fraying at top
+,,wood,57-287,down,end mill,"0.25""","1.0""","0.25""",general cutting,top edge clean
+,,wood,37-61,90,V,"0.5""","0.5""","0.25""",engraving/beveling, beveled edges/mitering/engraving
+,,wood/general,56-041,straight,end mill,"0.125""","0.375""","0.25""",general cutting,"neutral top and bottom, sides can show ridges"
+,,wood/general,56-082,straight,end mill,"0.25""","0.75""","0.25""",general cutting,"neutral top and bottom, sides can show ridges"
+,,wood/general,52-280,up,end mill,"0.25""","0.75""","0.25""",general cutting,"top edge rough, rapid clearing"
+,,,,,,0.5,1,,,
+,COLLETS,Onsrud.com,For 2.2HP and 4HP spindles,,,,,,,
+,,ER 25,34-152,"0.125""",Sonya Prior-Jones,,liaison between Chevron/Fab Foundation,,,
+,,ER 25,34-156,"0.25""",Jen-Luc Priote,,does the order,,,
+,,ER 25,34-164,"0.5""",,,,,,
+,,,,,,,,,,
+,COLLETS,TECHNIKS,,,,,,,,
+,,ER 25,"0.25""",,,,,,,
+,,ER 25,"0.5""",,,,,,,

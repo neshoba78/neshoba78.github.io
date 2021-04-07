@@ -1,0 +1,198 @@
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>InDigiFAB v 0.1</title>
+    <link rel="icon" type="image/svg+xml" href="assets/images/uktena-logo.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
+    <link href="assets/styles/styles.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Raleway&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script type='text/javascript'>
+      $(document).ready(function(){
+      $("img.a").hover(
+      function() {
+      $(this).stop().animate({"opacity": "0"}, "slow");
+      },
+      function() {
+      $(this).stop().animate({"opacity": "1"}, "slow");
+      });
+
+    });
+    </script>
+  </head>
+  <body>
+      <div id="main-window" class="content-static">
+        <div class="svg-animation">
+          <object type="image/svg+xml" data="assets/images/uktena.svg"></object>
+
+        </div>
+        <div id="main-title">
+        <h1>Acknowledging Emergence Origins</h1>
+        <hr>
+        <h4>Sustaining Balance as Future Ancestors</h4>
+      </div>
+        </div>
+        <div id="social-links" class="ui-widget-content filter">
+          <div class="content-view-header">
+            <p>Social Networks</p>
+          </div>
+          <h4>Social Networks:</h4>
+          <ul>
+            <li>
+              <a href="https://www.facebook.com/jeanluc.pierite" target="_blank" onclick="">
+                <img class="a" src="assets/images/logo-7.svg" />
+                <img class="b" src="assets/images/logo-7-color.svg" />
+              </a>
+              </li>
+              <li>
+              <a href="https://www.instagram.com/neshoba78/" target="_blank" onclick="">
+                <img class="a" src="assets/images/logo-8.svg" />
+                <img class="b" src="assets/images/logo-8-color.svg" />
+              </a>
+                </li>
+                <li>
+            <a href="http://instagram.com/veusderesistenciabcn" target="_blank" onclick="">
+              <img class="a" src="assets/images/logo-10.svg" />
+              <img class="b" src="assets/images/logo-10-color.svg" />
+            </a>
+                  </li>
+                <li>
+              <a href="https://www.linkedin.com/in/jeanlucpierite" target="_blank" onclick="">
+                <img class="a" src="assets/images/logo-9.svg" />
+                <img class="b" src="assets/images/logo-9-color.svg" />
+              </a>
+                  </li>
+                    <li>
+              <a href="https://community.emergentfutures.io/members/4907263" target="_blank" onclick="">
+                <img class="a" src="assets/images/logo-11.svg" />
+                <img class="b" src="assets/images/logo-11-color.svg" />
+              </a>
+                      </li>
+                      <li>
+              <a href="https://www.youtube.com/channel/UCio-BwkUAMMb0zX5BZepVSw" target="_blank" onclick="">
+                <img class="a" src="assets/images/logo-12.svg" />
+                <img class="b" src="assets/images/logo-12-color.svg" />
+              </a>
+                        </li>
+            </ul>
+          </div>
+          <script>
+            $( function() {
+              $( "#social-links" ).draggable({ scroll: false });
+            } );
+          </script>
+          <div id="content-articles"  class="ui-widget-content filter">
+            <div class="content-view-header">
+              <p>Consultations</p>
+            </div>
+                <div id="load-articles">
+                </div>
+            </div>
+            <script>
+              $( function() {
+              $( "#load-articles" ).load( "home.html" );
+                } );
+
+              $( function() {
+                  var x = window.matchMedia("(min-width: 900px)");
+
+                  if (x.matches) {
+                    $( function() {
+                      $( "#content-articles" ).draggable({ scroll: false });
+                    } );
+                    /* $( function() {
+                      $( "#content-articles" ).resizable({
+                        handles: 'n,s',
+                        scroll: false
+                      });
+                    } ); */
+                  }
+                }
+              );
+            </script>
+            <div id="global-footer"  class="ui-widget-content filter">
+              <div class="content-view-header">
+                <p>Interesting Notes</p>
+              </div>
+              <div id="load-footer">
+              </div>
+              </div>
+              <script>
+                $( function() {
+                $( "#load-footer" ).load( "news.html" );
+                } );
+                $( function() {
+                  $( "#global-footer" ).draggable({ scroll: false });
+                } );
+              </script>
+              <div id="global-welcome"  class="ui-widget-content filter">
+                <div class="content-view-header">
+                  <p>heni hotu</p>
+                </div>
+                <div id="load-welcome">
+                </div>
+                <div id="global-welcome-img1">
+                <img src="assets/images/brides-les-boeufs-rose.png" /></div>
+                <div id="global-welcome-img2">
+                <img src="assets/images/choctaw-stickball-rose.png" /></div>
+              </div>
+                <script>
+                  $( function() {
+                  $( "#load-welcome" ).load( "bio.html" );
+                  } );
+                </script>
+              <div id="sidebar" class="content-static filter">
+                <img id="logo" src="assets/images/uktena-logo.svg" />
+                <h1>InDigiFAB v 0.1</h1>
+                <ul>
+                  <li>
+                    <a href="#" onclick="toggleDIV('global-welcome'); return false;"><p>
+                      <img class="a" src="assets/images/logo-4.svg" />
+                      <img class="b" src="assets/images/logo-4-color.svg" />
+                    </p></a>
+                  </li>
+                  <li>
+                    <a href="#home" onclick="toggleDIV('content-articles'); return false;"><p>
+                      <img class="a" src="assets/images/logo-2.svg" />
+                      <img class="b" src="assets/images/logo-2-color.svg" />
+                    </p></a>
+                  </li>
+                  <li>
+                    <a href="#" onclick="toggleDIV('global-footer'); return false;"><p>
+                      <img class="a" src="assets/images/logo-1.svg" />
+                      <img class="b" src="assets/images/logo-1-color.svg" />
+                    </p></a>
+                  </li>
+                  <li>
+                    <a href="#" onclick="toggleDIV('social-links'); return false;"><p>
+                      <img class="a" src="assets/images/logo-3.svg" />
+                      <img class="b" src="assets/images/logo-3-color.svg" />                    </p></a>
+                  </li>
+                  <!--
+                  <li>
+                    <a href="#" onclick=""><p>
+                      <img src="assets/images/logo-5.svg" />
+                    </p></a>
+                  </li>
+                  <li>
+                    <a href="#" onclick=""><p>
+                      <img src="assets/images/logo-6.svg" />
+                    </p></a>
+                  </li> -->
+                </ul>
+                </a>
+                </div>
+
+                <div id="internal-links"></div>
+                <script>
+                $( function() {
+                $( "#internal-links" ).load( "internal-links.html" );
+                } );
+              </script>
+    </body>
+</html>

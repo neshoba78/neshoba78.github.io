@@ -1,0 +1,127 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InDigiFAB v 0.1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
+  <link href="assets/styles/styles.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Raleway&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script type='text/javascript'>
+    $(document).ready(function() {
+      $("img.a").hover(
+        function() {
+          $(this).stop().animate({
+            "opacity": "0"
+          }, "slow");
+        },
+        function() {
+          $(this).stop().animate({
+            "opacity": "1"
+          }, "slow");
+        });
+
+    });
+  </script>
+</head>
+
+<body>
+  <div id="fa-bg" class="body-wrapper">
+    <div class="parallax bgimg-mdef">
+      <div class="body-text">
+        <h1 id="mechanical-design-machine-design">Mechanical Design, Machine Design </h1>
+        <h4 id="have-you">Have you:</h4>
+        <ul>
+          <li>[x] Explained your individual contribution to this project on your own website</li>
+        </ul>
+        <h4 id="on-the-group-page-has-your-group">On the group page, has your group:</h4>
+        <ul>
+          <li>
+            <p>[x] Shown how your team planned and executed the project</p>
+          </li>
+          <li>
+            <p>[x] Described problems and how the team solved them</p>
+          </li>
+          <li>
+            <p>[x] Listed future development opportunities for this project</p>
+          </li>
+          <li>
+            <p>[x] Included your design files, &#x2018;hero shot&#x2019; photos of the machine and a short video of it operating</p>
+          </li>
+        </ul>
+        <h4 id="2018-tiny-g-controller-project">2018 Tiny G Controller Project</h4>
+        <p>Design Files: <a href="">Right Click + Save</a></p>
+        <p>As a continuing student, I asked to join the class at <a href="http://fab.academany.org/2018/labs/fablabdassault/" target="_blank">Dassault 3D Experience Lab</a>. There, I collaborated on an automated Etch-A-Sktech.</p>
+        <p>The first issue was that the machine was very top heavy. This created a problem with the automation of the erasing process on the Etch-a-Sketch screen. The original design was that a motor on the Z-axis would flip the screen 180 degrees to
+          erase any drawing. The problem with the machine being top heavy meant that gravity would pull the screen downwards. The majority of the time, a motor on the Z-axis would have to do work to hold the screen in place while the sketch was being
+          rendered on the X and Y axes. After advice from Jean-Michel Molenaar, we considered adding a counter weight to the device. Placement became an issue, at that point. At the top of the device and behind the screen, the counter weight would
+          continue the rotation. I brought up the physics of a <a href="http://www.physics.usyd.edu.au/super/physics_tut/activities/Thermal_Physics/The_Drinking_Bird.pdf" target="_blank">Drinking Bird</a> as a possibility to resolve the issue.
+          Perhaps we could have used an hour glass shaped container with sand or fluid to help control the weight issue. Ultimately, the team resolved to install a manual lever due to the deadline. Future development plans for the machine still
+          include a way to automate the erasing process on the Z-axis.</p>
+        <video width="320" height="240" controls="controls">
+          <source type="video/mp4" src="assets/mtm_lever.mp4">
+        </video>
+
+        <p>The second issue involved talking to the Tiny G controller to send code to automate the motors. The team could send individual moves to the controller through <a
+            href="https://github.com/synthetos/TinyG/wiki/TinyG-Sending-Files-with-CoolTerm" target="_blank">CoolTerm</a>. </p>
+        <video width="320" height="240" controls="controls">
+          <source type="video/mp4" src="assets/tinygcode.mp4">
+        </video>
+
+        <h4 id="2015-gestalt-board-and-stage-project">2015 Gestalt Board and Stage Project</h4>
+        <p><img src="assets/four-pos-tool-slide.png" alt=""></p>
+        <p><a href="https://www.youtube.com/watch?v=qs3NtUlOjG4" title="Four Position Tool Changer" target="_blank"><img src="https://img.youtube.com/vi/qs3NtUlOjG4/0.jpg" alt="Four Position Tool Changer"></a></p>
+        <p>Design Files: <a href="uploads/four-pos-tool.zip">Right Click + Save</a></p>
+        <p>See also: <a href="mar-01-electronics-design.html">Work done submitting the gestalt node to Seeed Studio</a></p>
+        <p>This is a group project that I worked on with Dan Moran, Fab Lab Tulsa. Using the instructions on the modular Machines that Make page, we built a single stage and planned for an end effector. Rather than have a single end effector, we
+          decided to prototype a mechanical four-position tool.</p>
+        <p>The concept is to sacrifice some of the carriage&#x2019;s travel distance to rotate a ratchet and swap tool heads.</p>
+        <p><strong>Description from Dan:</strong><br>&#x201C;The lead screw will move the carriage to one of its limits where a ratchet on the carriage will engage a static pawl anchored to the stage housing. As the carriage is moved away the pawl
+          should rotate the ratchet a quarter turn and be left in that position thanks to a concentric, spring-loaded cam. So by sacrificing a small portion of its overall travel to the ratcheting action, a single stage should now have the ability to
+          use 4 times the tools.&#x201D;</p>
+        <p>The build took several rounds of revisions in order to get the ratchet and pawl to engage reliably and stay in contact longer.</p>
+        <p>After several revisions, we improved on engagement by adding an additional rake to the pawl and ratchet.</p>
+        <p>The carriage will translate backwards towards the stepper motor to the engage the pawl attached to a platform screwed to the stage housing and as the carriage moves away, the pawl will rotate the face plate a quarter turn as controlled by
+          the 4 lobe cam and rubber band powered cam follower.</p>
+        <p>We used #8 screws to illustrate tools.</p>
+        <p>We mounted the pawl assembly over the stepper motor end of the stage and put it through several manual cycles with my hands. Here are distances as measured from the pawl platform leading edge to the leading edge of the cardboard carriage
+          (lead screw nut end) that would influence the range of the stage:</p>
+        <ol>
+          <li>30 mm Pawl makes contact with ratchet (carriage moving toward pawl assy. and stepper motor)</li>
+          <li>33 mm Pawl seated in ratchet tooth (carriage moving away from pawl assy. and stepper motor)</li>
+          <li>70 mm Pawl clears ratchet tooth (carriage moving away from pawl assy. &amp; stepper motor)</li>
+        </ol>
+        <p>These distances were a little difficult to measure with much accuracy. The stage would loose at least 70mm of its range in the current design or potentially more since the pawl assembly can be mounted anywhere along the length of the lead
+          screw.</p>
+        <p>Catching up with you on the software side of our machine. I have attached the code and a &#x201C;path.csv&#x201D; to manage the coordinates for moves.</p>
+        <p>The file can be executed by navigating to the directory and typing &#x201C;python pawl.py&#x201D; I&#x2019;d probably copy this into /examples/htmaa. Wasn&#x2019;t sure if there were any other dependencies. For this round, I did not
+          include the bootloader.</p>
+        <p><strong>Notes:</strong></p>
+        <ol>
+          <li>I need to know the device ID of the FTDI cable on your end. I left it as the default: &#x201C;/dev/ttyUSB0&#x201D;. You can find the device by typing &#x201C;ls /dev/tty.usb*&#x201D;</li>
+          <li>I noticed several threads come up that can be resolved by deleting the &#x201C;test.vmp&#x201D; file. I added that as our first step.</li>
+          <li>Because we need to move the carriage from a home point, towards the motor and back; I wanted to do this in three moves to avoid errors. The first move takes the carriage back to home (70) in case of any power outage or interruption. The
+            carriage then moves toward the motor (30) to engage the pawl. The final move (70) causes the pawl to rotate the face plate. These are set in the path.csv.</li>
+          <li>I used Bas&#x2019;s FABNET Bridge Board to test. Attached the traces.</li>
+          <li>We can control the velocity of the moves, considering wear on the pawl and how quickly we want to make the change.</li>
+        </ol>
+        <p><strong>Sources</strong></p>
+        <p>Moran, Dan &quot;Machine Building&quot; Message to Jean-Luc Pierite. 26 May 2015. E-mail.</p>
+        <p>Moran, Dan &quot;Machine Design End Effector Update&quot; Message to Jean-Luc Pierite. 2 June 2015. E-mail.</p>
+        <p>Pierite, Jean-Luc &quot;Machine Design End Effector Update&quot; Message to Dan Moran. 8 June 2015. E-mail.</p>
+
+        <p><span>HOME: <a class="falinks" href="index.html#home">Sáhatéti</a></span></p>
+        <!-- <p><span>NEXT: <a class="falinks" href="index.html#fa-10">input devices</a></span></p> -->
+        <p><span>PREV: <a class="falinks" href="index.html#fa-08">embedded programming</a></span></p>
+
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
